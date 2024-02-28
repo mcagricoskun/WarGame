@@ -97,7 +97,7 @@ public abstract class locationBattle extends Location {
             System.out.println("Toplam altının " + this.getPlayer().getPlayerMoney() + " oldu!");
         }
         this.getPlayer().itemAwardList.add(this.getItemAward());
-        System.out.println("Kazandığın ödüller: " + this.getPlayer().getItemAwardList());
+        System.out.println("Kazandığın ödüller:: " + this.getPlayer().getItemAwardList());
         return true;
     }
 
