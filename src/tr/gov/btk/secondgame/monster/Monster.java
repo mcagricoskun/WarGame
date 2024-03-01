@@ -1,3 +1,5 @@
+package tr.gov.btk.secondgame.monster;
+
 public class Monster {
     private int monsterId;
     private String monsterName;

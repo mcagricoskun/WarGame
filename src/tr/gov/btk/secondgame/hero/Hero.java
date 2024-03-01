@@ -1,3 +1,5 @@
+package tr.gov.btk.secondgame.hero;
+
 public abstract class  Hero {
     int heroID;
     String heroName;

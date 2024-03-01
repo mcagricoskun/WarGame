@@ -1,3 +1,8 @@
+package tr.gov.btk.secondgame.location;
+
+import tr.gov.btk.secondgame.Armor;
+import tr.gov.btk.secondgame.Player;
+import tr.gov.btk.secondgame.Weapon;
 
 public class locationVillageStore extends locationVillage {
     public locationVillageStore(Player player) {
@@ -50,9 +55,11 @@ public class locationVillageStore extends locationVillage {
         System.out.println("Çıkmak için -> 0");
         System.out.println("Almak istediğin silahın ID sini seç!");
         int selectedWeaponID = input.nextInt();
-        while (selectedWeaponID < 0 || selectedWeaponID > Weapon.weapons().length + 1) {
+        Weapon weapon = Weapon.getWeaponById(selectedWeaponID);
+        while (weapon == null) {
             System.out.println("Geçersiz seçim, tekrar dene:");
             selectedWeaponID = input.nextInt();
+            weapon = Weapon.getWeaponById(selectedWeaponID);
         }
         if (selectedWeaponID != 0) {
             Weapon selectedWeapon = Weapon.getWeaponById(selectedWeaponID);

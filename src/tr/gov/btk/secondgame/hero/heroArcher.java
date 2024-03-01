@@ -1,3 +1,5 @@
+package tr.gov.btk.secondgame.hero;
+
 public class heroArcher extends Hero {
 
 

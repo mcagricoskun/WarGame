@@ -1,3 +1,8 @@
+package tr.gov.btk.secondgame.location;
+
+import tr.gov.btk.secondgame.monster.Monster;
+import tr.gov.btk.secondgame.Player;
+
 import java.util.Random;
 
 public abstract class locationBattle extends Location {
@@ -96,8 +101,8 @@ public abstract class locationBattle extends Location {
             this.getPlayer().setPlayerMoney(this.getPlayer().getPlayerMoney() + this.getMonster().getWinAward());
             System.out.println("Toplam altının " + this.getPlayer().getPlayerMoney() + " oldu!");
         }
-        this.getPlayer().itemAwardList.add(this.getItemAward());
-        System.out.println("Kazandığın ödüller:: " + this.getPlayer().getItemAwardList());
+        this.getPlayer().addAward(this.getItemAward());
+        System.out.println("Kazandığın ödüller: " + this.getPlayer().getItemAwardList());
         return true;
     }
 

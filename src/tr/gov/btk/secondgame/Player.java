@@ -1,6 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package tr.gov.btk.secondgame;
+
+import tr.gov.btk.secondgame.hero.Hero;
+import tr.gov.btk.secondgame.hero.heroArcher;
+import tr.gov.btk.secondgame.hero.heroCavalry;
+import tr.gov.btk.secondgame.hero.heroPaladin;
+import tr.gov.btk.secondgame.location.Location;
+
+import java.util.*;
 
 public class Player {
     private String playerName;
@@ -11,16 +17,21 @@ public class Player {
     private int heroId;
     private Inventory inventory;
     private int defaultHealth;
-    public List<String> itemAwardList = new ArrayList<>();
-
-    Scanner input = new Scanner(System.in);
+    private final List<String> itemAwardList = new ArrayList<>();
 
     public Player(String playerName) {
         this.playerName = playerName;
         this.inventory = new Inventory();
     }
 
-    public void selectHero() {
+    public void processLocations(List<Location> locations) {
+
+    }
+
+    public void addAward(String award) {
+        itemAwardList.add(award);
+    }
+    public void selectHero(int heroId) {
         Hero[] herolist = {new heroArcher(), new heroPaladin(), new heroCavalry()};
         //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
         for (Hero hero : herolist) {
@@ -28,7 +39,7 @@ public class Player {
         }
         System.out.println("--------------");
         System.out.println("Hero seçimini yapınız, ID = ?");
-        heroId = input.nextInt();
+
 
         switch (heroId) {
             case 1:
@@ -133,7 +144,4 @@ public class Player {
         return itemAwardList;
     }
 
-    public void setItemAwardList(List<String> itemAwardList) {
-        this.itemAwardList = itemAwardList;
-    }
 }

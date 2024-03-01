@@ -1,3 +1,5 @@
+package tr.gov.btk.secondgame;
+
 public class Weapon {
     private int weaponId;
     private String weaponName;
@@ -12,7 +14,7 @@ public class Weapon {
     }
 
     //weapons adında metod oluşturdum
-    public static Weapon [] weapons(){
+    private static Weapon [] weapons(){
         // dizi oluşturdum
         Weapon [] weaponList = new Weapon[3];
         //dizi içine elemanaları yerleştirdim

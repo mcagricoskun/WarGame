@@ -1,4 +1,6 @@
-public class heroPaladin extends Hero{
+package tr.gov.btk.secondgame.hero;
+
+public class heroPaladin extends Hero {
 
     //Constructor
 

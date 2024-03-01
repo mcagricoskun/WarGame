@@ -1,4 +1,4 @@
-
+package tr.gov.btk.secondgame;
 
 public class Inventory {
     private Armor armor;
