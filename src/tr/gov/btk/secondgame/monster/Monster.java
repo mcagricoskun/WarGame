@@ -1,5 +1,7 @@
 package tr.gov.btk.secondgame.monster;
 
+import tr.gov.btk.secondgame.Player;
+
 public class Monster {
     private int monsterId;
     private String monsterName;
@@ -15,6 +17,20 @@ public class Monster {
         this.monsterHealth = monsterHealth;
         this.winAward = winAward;
         this.defaultMonsterHealth = monsterHealth;
+    }
+    public void monsterHit(Player player) {
+        System.out.println(getMonsterName() + " " + getMonsterDamage() + " hasar vurdu!");
+
+        if (player != null && player.getInventory() != null && player.getInventory().getArmor() != null) {
+            int blockedDamage = player.getInventory().getArmor().getArmorBlock() - getMonsterDamage();
+
+            if (blockedDamage <= 0) {
+                player.setPlayerHealth(player.getPlayerHealth() + blockedDamage);
+                player.getInventory().getArmor().setArmorBlock(0);
+            }
+
+            System.out.println(player.getPlayerHealth() + " canınız kaldı");
+        }
     }
 
     public int getMonsterId() {

@@ -11,20 +11,20 @@ public class LocationFactory {
             case 0:
                return Optional.empty();
             case 1:
-                return Optional.of(new locationVillageHome(player));
+                return Optional.of(new LocationVillageHome(player));
             case 2:
-                return Optional.of(new locationVillageStore(player));
+                return Optional.of(new LocationVillageStore(player));
 
             case 3:
-                return Optional.of(new locationBattleMountain(player));
+                return Optional.of(new LocationBattleMountain(player));
 
             case 4:
-                return Optional.of(new locationBattleCave(player));
+                return Optional.of(new LocationBattleCave(player));
 
             case 5:
-                return Optional.of(new locationBattleSea(player));
+                return Optional.of(new LocationBattleSea(player));
             default:
-                return Optional.of(new locationVillageHome(player));
+                return Optional.of(new LocationVillageHome(player));
 
         }
 

@@ -12,6 +12,7 @@ public class Game {
         System.out.println("Hoş geldin, Adınız: ");
         String playerName = input.nextLine();
         Player player = new Player(playerName);
+        player.heroList();
         int heroId = input.nextInt();
         player.selectHero(heroId);
 

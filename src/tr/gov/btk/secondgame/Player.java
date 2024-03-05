@@ -1,10 +1,11 @@
 package tr.gov.btk.secondgame;
 
 import tr.gov.btk.secondgame.hero.Hero;
-import tr.gov.btk.secondgame.hero.heroArcher;
-import tr.gov.btk.secondgame.hero.heroCavalry;
-import tr.gov.btk.secondgame.hero.heroPaladin;
+import tr.gov.btk.secondgame.hero.HeroArcher;
+import tr.gov.btk.secondgame.hero.HeroCavalry;
+import tr.gov.btk.secondgame.hero.HeroPaladin;
 import tr.gov.btk.secondgame.location.Location;
+import tr.gov.btk.secondgame.monster.Monster;
 
 import java.util.*;
 
@@ -31,8 +32,9 @@ public class Player {
     public void addAward(String award) {
         itemAwardList.add(award);
     }
-    public void selectHero(int heroId) {
-        Hero[] herolist = {new heroArcher(), new heroPaladin(), new heroCavalry()};
+
+    public void heroList(){
+        Hero[] herolist = {new HeroArcher(), new HeroPaladin(), new HeroCavalry()};
         //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
         for (Hero hero : herolist) {
             System.out.println( "ID --> "+ hero.getHeroID() + " // "+ "Hero İsmi --> " + hero.getHeroName() +" // "+ "Hero Hasarı --> " + hero.getHeroDamage() +" // "+ "Hero Sağlığı --> " + hero.getHeroHealth() +" // "+ "Hero Altın --> " + hero.getHeroGold());
@@ -40,19 +42,29 @@ public class Player {
         System.out.println("--------------");
         System.out.println("Hero seçimini yapınız, ID = ?");
 
+    }
+    public void selectHero(int heroId) {
+//        Hero[] herolist = {new heroArcher(), new heroPaladin(), new heroCavalry()};
+//        //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
+//        for (Hero hero : herolist) {
+//            System.out.println( "ID --> "+ hero.getHeroID() + " // "+ "Hero İsmi --> " + hero.getHeroName() +" // "+ "Hero Hasarı --> " + hero.getHeroDamage() +" // "+ "Hero Sağlığı --> " + hero.getHeroHealth() +" // "+ "Hero Altın --> " + hero.getHeroGold());
+//        }
+//        System.out.println("--------------");
+//        System.out.println("Hero seçimini yapınız, ID = ?");
+
 
         switch (heroId) {
             case 1:
-                initPlayer(new heroArcher());
+                initPlayer(new HeroArcher());
                 break;
             case 2:
-                initPlayer(new heroPaladin());
+                initPlayer(new HeroPaladin());
                 break;
             case 3:
-                initPlayer(new heroCavalry());
+                initPlayer(new HeroCavalry());
                 break;
             default:
-                initPlayer(new heroArcher());
+                initPlayer(new HeroArcher());
                 break;
         }
         System.out.println(this.playerName + " Seçtin!");
@@ -74,6 +86,11 @@ public class Player {
         System.out.println("Zırhınız           : " + this.inventory.getArmor().getArmorName());
         System.out.println("Zırhınızın Engeli  : " + this.inventory.getArmor().getArmorBlock());
 
+    }
+    public void playerHit(Monster monster) {
+        System.out.println(monster.getMonsterName() + " --> " + getPlayerDamage() + " hasar vurdunuz!");
+        monster.setMonsterHealth(monster.getMonsterHealth() - getPlayerDamage());
+        System.out.println(monster.getMonsterName() + " --> " + monster.getMonsterHealth() + " canı kaldı!");
     }
 
 

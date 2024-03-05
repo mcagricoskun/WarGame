@@ -13,8 +13,8 @@ public class Weapon {
         this.weaponPrice = weaponPrice;
     }
 
-    //weapons adında metod oluşturdum
-    private static Weapon [] weapons(){
+    //weapons adında liste oluşturdum
+    public static Weapon [] weapons(){
         // dizi oluşturdum
         Weapon [] weaponList = new Weapon[3];
         //dizi içine elemanaları yerleştirdim
@@ -66,4 +66,5 @@ public class Weapon {
     public void setWeaponPrice(int weaponPrice) {
         this.weaponPrice = weaponPrice;
     }
+
 }

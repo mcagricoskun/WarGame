@@ -1,7 +1,7 @@
 package tr.gov.btk.secondgame.monster;
 
-public class monsterWhale extends Monster {
-    public monsterWhale() {
+public class MonsterWhale extends Monster {
+    public MonsterWhale() {
         super(2, "Balina", 7, 15, 11);
     }
 }

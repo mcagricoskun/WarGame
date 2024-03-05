@@ -15,6 +15,7 @@ public abstract class Location {
     }
 
     public abstract boolean onLocation();
+
     public Player getPlayer() {
         return player;
     }

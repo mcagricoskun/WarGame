@@ -4,8 +4,8 @@ import tr.gov.btk.secondgame.Armor;
 import tr.gov.btk.secondgame.Player;
 import tr.gov.btk.secondgame.Weapon;
 
-public class locationVillageStore extends locationVillage {
-    public locationVillageStore(Player player) {
+public class LocationVillageStore extends LocationVillage {
+    public LocationVillageStore(Player player) {
         super(player, "Mağaza");
     }
 
@@ -50,6 +50,7 @@ public class locationVillageStore extends locationVillage {
         }
 
     }
+
 
     public void buyWeapon() {
         System.out.println("Çıkmak için -> 0");

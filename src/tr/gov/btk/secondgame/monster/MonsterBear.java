@@ -1,7 +1,7 @@
 package tr.gov.btk.secondgame.monster;
 
-public class monsterBear extends Monster {
-    public monsterBear() {
+public class MonsterBear extends Monster {
+    public MonsterBear() {
         super(1,"Ayı", 5,12,7);
     }
 }
