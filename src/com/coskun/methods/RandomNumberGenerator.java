@@ -1,4 +1,4 @@
-package com.coskun;
+package com.coskun.methods;
 
 import java.util.Random;
 

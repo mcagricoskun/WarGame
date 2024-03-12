@@ -1,14 +1,13 @@
 package com.coskun;
 
-import com.coskun.hero.HeroCavalry;
 import com.coskun.hero.Hero;
 import com.coskun.hero.HeroArcher;
+import com.coskun.hero.HeroCavalry;
 import com.coskun.hero.HeroPaladin;
 import com.coskun.inventory.Inventory;
-import com.coskun.location.Location;
-import com.coskun.monster.Monster;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String playerName;
@@ -26,32 +25,12 @@ public class Player {
         this.inventory = new Inventory();
     }
 
-    public void processLocations(List<Location> locations) {
-
-    }
 
     public void addAward(String award) {
         itemAwardList.add(award);
     }
 
-    public void heroList(){
-        Hero[] herolist = {new HeroArcher(), new HeroPaladin(), new HeroCavalry()};
-        //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
-        for (Hero hero : herolist) {
-            System.out.println( "ID --> "+ hero.getHeroID() + " // "+ "Hero İsmi --> " + hero.getHeroName() +" // "+ "Hero Hasarı --> " + hero.getHeroDamage() +" // "+ "Hero Sağlığı --> " + hero.getHeroHealth() +" // "+ "Hero Altın --> " + hero.getHeroGold());
-        }
-        System.out.println("--------------");
-        System.out.println("Hero seçimini yapınız, ID = ?");
-
-    }
     public void selectHero(int heroId) {
-//        Hero[] herolist = {new heroArcher(), new heroPaladin(), new heroCavalry()};
-//        //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
-//        for (Hero hero : herolist) {
-//            System.out.println( "ID --> "+ hero.getHeroID() + " // "+ "Hero İsmi --> " + hero.getHeroName() +" // "+ "Hero Hasarı --> " + hero.getHeroDamage() +" // "+ "Hero Sağlığı --> " + hero.getHeroHealth() +" // "+ "Hero Altın --> " + hero.getHeroGold());
-//        }
-//        System.out.println("--------------");
-//        System.out.println("Hero seçimini yapınız, ID = ?");
 
 
         switch (heroId) {
@@ -80,7 +59,7 @@ public class Player {
         this.setDefaultHealth(hero.getHeroHealth());
     }
 
-    public void printPlayerInfo(){
+    public void printPlayerInfo() {
         System.out.println("Silahınız          : " + this.inventory.getWeapon().getWeaponName());
         System.out.println("Silahınızın Hasarı : " + this.inventory.getWeapon().getWeaponDamage());
 
@@ -88,10 +67,17 @@ public class Player {
         System.out.println("Zırhınızın Engeli  : " + this.inventory.getArmor().getArmorBlock());
 
     }
-    public void playerHit(Monster monster) {
-        System.out.println(monster.getMonsterName() + " --> " + getPlayerDamage() + " hasar vurdunuz!");
-        monster.setMonsterHealth(monster.getMonsterHealth() - getPlayerDamage());
-        System.out.println(monster.getMonsterName() + " --> " + monster.getMonsterHealth() + " canı kaldı!");
+
+    public void receivedMonsterDamage(int monsterDamage){
+    System.out.println(getPlayerName() + " --> " + monsterDamage + " hasar aldınız!");
+        if ( getInventory() != null && getInventory().getArmor() != null) {
+            int blockedDamage = getInventory().getArmor().getArmorBlock() - monsterDamage;
+            if (blockedDamage <= 0) {
+                setPlayerHealth(getPlayerHealth() + blockedDamage);
+                getInventory().getArmor().setArmorBlock(0);
+            }
+            System.out.println(getPlayerHealth() + " canınız kaldı");
+        }
     }
 
 
@@ -158,8 +144,10 @@ public class Player {
     public void setDefaultHealth(int defaultHealth) {
         this.defaultHealth = playerHealth;
     }
+
     public List<String> getItemAwardList() {
         return itemAwardList;
     }
 
 }
+
