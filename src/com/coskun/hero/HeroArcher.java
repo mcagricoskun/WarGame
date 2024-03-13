@@ -1,9 +1,11 @@
-public class heroArcher extends Hero {
+package com.coskun.hero;
+
+public class HeroArcher extends Hero {
 
 
     //Constructor
 
-    public heroArcher(){
+    public HeroArcher(){
         //super üst sınıfa erişmeye yarar super
         super(1, "Okçu", 3, 12, 30);
     }

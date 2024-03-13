@@ -1,3 +1,5 @@
+package com.coskun.monster;
+
 public class Monster {
     private int monsterId;
     private String monsterName;
@@ -13,6 +15,13 @@ public class Monster {
         this.monsterHealth = monsterHealth;
         this.winAward = winAward;
         this.defaultMonsterHealth = monsterHealth;
+    }
+
+       public void receivedPlayerDamage(int playerDamage){
+        System.out.println(getMonsterName() + " --> " + playerDamage + " hasar vurdunuz!");
+        setMonsterHealth(getMonsterHealth() - playerDamage);
+        System.out.println(getMonsterName() + " --> " + getMonsterHealth() + " canı kaldı!");
+
     }
 
     public int getMonsterId() {
@@ -61,5 +70,9 @@ public class Monster {
 
     public void setDefaultMonsterHealth(int defaultMonsterHealth) {
         this.defaultMonsterHealth = defaultMonsterHealth;
+    }
+
+    public void resetHealth() {
+        this.setMonsterHealth((this.getDefaultMonsterHealth()));
     }
 }

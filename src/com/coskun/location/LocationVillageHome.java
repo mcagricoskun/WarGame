@@ -1,5 +1,9 @@
-public class locationVillageHome extends locationVillage{
-    public locationVillageHome(Player player) {
+package com.coskun.location;
+
+import com.coskun.Player;
+
+public class LocationVillageHome extends LocationVillage {
+    public LocationVillageHome(Player player) {
         super(player, "Ev");
     }
 

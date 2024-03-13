@@ -1,8 +1,10 @@
-public class heroPaladin extends Hero{
+package com.coskun.hero;
+
+public class HeroPaladin extends Hero {
 
     //Constructor
 
-    public heroPaladin(){
+    public HeroPaladin(){
         //super olmadan da mümkün ancak üst sınıfa default boş constructor da yazılmalı
 //        heroID = 2;
 ////        heroName = "Şovalye";

@@ -1,4 +1,4 @@
-
+package com.coskun.inventory;
 
 public class Inventory {
     private Armor armor;

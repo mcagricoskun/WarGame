@@ -1,4 +1,4 @@
-//
+package com.coskun.inventory;//
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
@@ -18,20 +18,7 @@ public class Armor {
         this.armorPrice = armorPrice;
     }
 
-    public static Armor[] armors() {
-        Armor[] armorList = new Armor[]{new Armor(2, "Tahta Zırh", 3, 5), new Armor(3, "Demir Zırh", 7, 10), new Armor(4, "Çelik Zırh", 15, 20)};
-        return armorList;
-    }
 
-    public static Armor getArmorById(int id) {
-        for (Armor a : armors()) {
-            if (a.getArmorId() == id) {
-                return a;
-            }
-        }
-
-        return null;
-    }
 
     public int getArmorId() {
         return this.armorId;
