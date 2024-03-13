@@ -48,13 +48,10 @@ public class Game {
                 Optional<Location> location = LocationFactory.getLocationFor(selectedLocation, player);
 
                 if(location.isPresent()) {
-                    //Location actualLocation = location.get();
-                    //if (actualLocation.onLocation()== false){
                     if (!location.get().onLocation()){
-                        //if (!actualLocation.onLocation()) {
                             System.out.println("ÖLDÜNÜZ!");
                             break;
-                        //}
+
                     }
                 }
             }
@@ -63,8 +60,8 @@ public class Game {
         }
     }
 
-    public void  printHeros(){
-        //System.out.println("Hero ID " +"-- "+ "Hero İsmi " +"-- "+ "Hero Hasarı " +"-- "+ "Hero Sağlığı " +"-- "+ "Hero Altın");
+    public void printHeros(){
+
         for (Hero h : HEROES) {
             System.out.println( "ID --> "+ h.getHeroID() + " // "+ "Hero İsmi --> " + h.getHeroName() +" // "+ "Hero Hasarı --> " + h.getHeroDamage() +" // "+ "Hero Sağlığı --> " + h.getHeroHealth() +" // "+ "Hero Altın --> " + h.getHeroGold());
         }

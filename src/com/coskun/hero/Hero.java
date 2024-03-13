@@ -7,7 +7,7 @@ public abstract class  Hero {
     int heroHealth;
     int heroGold;
 
-    public Hero(int heroID, String heroName, int heroDamage, int heroHealth, int heroGold) {
+    protected Hero(int heroID, String heroName, int heroDamage, int heroHealth, int heroGold) {
         this.heroID = heroID;
         this.heroName = heroName;
         this.heroDamage = heroDamage;

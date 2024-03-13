@@ -5,21 +5,23 @@ import com.coskun.inventory.Armor;
 import com.coskun.inventory.Weapon;
 
 public class LocationVillageStore extends LocationVillage {
+
     private final Weapon[] weapons = {
-            new Weapon(2, "Kılıç", 5, 5),
-            new Weapon(3, "Tabanca", 9, 10),
-            new Weapon(4, "Tüfek", 15, 15),
+            new Weapon(1, "Kılıç", 5, 5),
+            new Weapon(2, "Tabanca", 9, 10),
+            new Weapon(3, "Tüfek", 15, 15),
     };
 
-    public final Armor[] armors = {
-            new Armor(2, "Tahta Zırh", 3, 5),
-            new Armor(3, "Demir Zırh", 7, 10),
-            new Armor(4, "Çelik Zırh", 15, 20),
+    private final Armor[] armors = {
+            new Armor(1, "Tahta Zırh", 3, 5),
+            new Armor(2, "Demir Zırh", 7, 10),
+            new Armor(3, "Çelik Zırh", 15, 20),
     };
 
     public LocationVillageStore(Player player) {
         super(player, "Mağaza");
     }
+
 
     @Override
     public boolean onLocation() {
@@ -37,108 +39,38 @@ public class LocationVillageStore extends LocationVillage {
         switch (decision) {
             case 1:
                 printWeapon();
-                buyWeapon();
+                sellWeapon(getPlayer());
                 break;
             case 2:
                 printArmor();
-                buyArmor();
+                sellArmor(getPlayer());
                 break;
             case 3:
                 return true;
         }
         return true;
     }
+    public void sellWeapon(Player player) {
+        System.out.println("Silah almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
+        int selectedWeaponIDddd = input.nextInt();
 
-
-    public void buyWeapon() {
-        System.out.println("Çıkmak için -> 0");
-        System.out.println("Almak istediğin silahın ID sini seç!");
-        int selectedWeaponID = input.nextInt();
-
-        Weapon weapon = getWeaponById(selectedWeaponID);
-
-        while (weapon == null) {
-            System.out.println("Geçersiz seçim, tekrar dene:");
-            selectedWeaponID = input.nextInt();
-            weapon = getWeaponById(selectedWeaponID);
+        if (selectedWeaponIDddd == 0) {
+            System.out.println("İşlem iptal edildi.");
+            return;
         }
-        if (selectedWeaponID != 0 && selectedWeaponID != this.getPlayer().getInventory().getWeapon().getWeaponId()) {
-            Weapon selectedWeapon = getWeaponById(selectedWeaponID);
 
-            if (selectedWeapon.getWeaponPrice() > this.getPlayer().getPlayerMoney()) {
-                System.out.println("Altının yetersiz!");
-                System.out.println("Sahip olduğun altın: " + this.getPlayer().getPlayerMoney());
-                System.out.println("Almak istediğin silah: " + selectedWeapon.getWeaponPrice() + " altın.");
-            } else {
-
-                this.getPlayer().getInventory().setWeapon(selectedWeapon);
-
-                // TODO
-
-                int balance = this.getPlayer().getPlayerMoney() - selectedWeapon.getWeaponPrice();
-                this.getPlayer().setPlayerMoney(balance);
-                System.out.println(selectedWeapon.getWeaponName() + " Satın aldın!" + " " + this.getPlayer().getPlayerMoney() + " altının kaldı");
-
-                getPlayer().printPlayerInfo();
-            }
-
-        } else {
-            System.out.println("Zaten bu silahı kullanıyorsun!");
-        }
+        player.buyWeapon(weapons, selectedWeaponIDddd);
     }
-
-
-    public void buyArmor() {
-        System.out.println("Çıkmak için -> 0");
-        System.out.println("Almak istediğin zırhın ID sini seç!");
+    public void sellArmor(Player player) {
+        System.out.println("Zırh almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
         int selectedArmorID = input.nextInt();
 
-        Armor armor = getArmorById(selectedArmorID);
-        while (armor == null) {
-            System.out.println("Geçersiz seçim, tekrar dene:");
-            selectedArmorID = input.nextInt();
-            armor = getArmorById(selectedArmorID);
-        }
-        if (selectedArmorID != 0 && selectedArmorID != this.getPlayer().getInventory().getArmor().getArmorId()) {
-            Armor selectedArmor = getArmorById(selectedArmorID);
-            if (selectedArmor.getArmorPrice() > this.getPlayer().getPlayerMoney()) {
-
-                    System.out.println("Altının yetersiz!");
-                    System.out.println("Sahip olduğun altın: " + this.getPlayer().getPlayerMoney());
-                    System.out.println("Almak istediğin zırh: " + selectedArmor.getArmorPrice() + " altın.");
-                } else {
-                    this.getPlayer().getInventory().setArmor(selectedArmor);
-
-                    int balance = this.getPlayer().getPlayerMoney() - selectedArmor.getArmorPrice();
-                    this.getPlayer().setPlayerMoney(balance);
-                    System.out.println(selectedArmor.getArmorName() + " Satın aldın!" + " " + this.getPlayer().getPlayerMoney() + " altının kaldı");
-
-                    getPlayer().printPlayerInfo();
-                }
-            }
-         else {
-            System.out.println("Zaten bu zırha sahipsin!");
+        if (selectedArmorID == 0) {
+            System.out.println("İşlem iptal edildi.");
+            return;
         }
 
-    }
-
-    private Weapon getWeaponById(int id) {
-        for (Weapon w : weapons) {
-            if (w.getWeaponId() == id) {
-                return w;
-            }
-        }
-        return null;
-    }
-
-    private Armor getArmorById(int id) {
-        for (Armor a : armors) {
-            if (a.getArmorId() == id) {
-                return a;
-            }
-        }
-
-        return null;
+        player.buyArmor(armors, selectedArmorID);
     }
 
     public void printArmor() {
@@ -150,9 +82,8 @@ public class LocationVillageStore extends LocationVillage {
             int price = a.getArmorPrice();
             int block = a.getArmorBlock();
 
-            System.out.println("ID: " + id + " | " + name + " ==> Price: " + price + " Block: " + block);
+            System.out.println("ID: " + id + " | " + name + " ==> Bloklama: " + block + " Altın: " + price);
         }
-
     }
 
     public void printWeapon() {
@@ -164,10 +95,10 @@ public class LocationVillageStore extends LocationVillage {
             int price = w.getWeaponPrice();
             int damage = w.getWeaponDamage();
 
-            System.out.println("ID: " + id + " | " + name + " --> Hasar: " + damage + " Altın: " + price);
+            System.out.println("ID: " + id + " | " + name + " ==> Hasar: " + damage + " Altın: " + price);
         }
-
     }
+
 }
 
 
