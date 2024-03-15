@@ -24,7 +24,7 @@ public class LocationVillageStore extends LocationVillage {
 
 
     @Override
-    public boolean onLocation() {
+    public boolean enterLocation() {
         System.out.println("Dükkana hoş geidin!");
         System.out.println("Silah almak için -------> 1");
         System.out.println("Zırh almak için --------> 2");

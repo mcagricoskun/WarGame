@@ -16,16 +16,20 @@ public class Game {
 
     private static final Hero[] HEROES = {new HeroArcher(), new HeroPaladin(), new HeroCavalry()};
     private GameInput input = new ConsoleGameInput();
+
+
     public void start (){
         System.out.println("Hoş geldin, Adınız: ");
+
         String playerName = input.nextLine();
         Player player = new Player(playerName);
 
-        printHeros();
         //player.heroList();
-        int heroId = input.nextInt();
-        player.selectHero(heroId);
+        printHeros();
 
+        int heroId = input.nextInt();
+
+        player.selectHero(heroId);
         player.printPlayerInfo();
 
         while (true){
@@ -48,7 +52,7 @@ public class Game {
                 Optional<Location> location = LocationFactory.getLocationFor(selectedLocation, player);
 
                 if(location.isPresent()) {
-                    if (!location.get().onLocation()){
+                    if (!location.get().enterLocation()){
                             System.out.println("ÖLDÜNÜZ!");
                             break;
 
@@ -69,4 +73,5 @@ public class Game {
         System.out.println("--------------");
         System.out.println("Hero seçimini yapınız, ID = ?");
     }
+
 }

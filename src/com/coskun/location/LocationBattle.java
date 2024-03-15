@@ -21,7 +21,7 @@ public abstract class LocationBattle extends Location {
     }
 
 
-    public boolean onLocation() {
+    public boolean enterLocation() {
 
         if (this.getPlayer().getPlayerHealth() < 0) {
             return false;

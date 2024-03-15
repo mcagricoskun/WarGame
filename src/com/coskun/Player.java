@@ -7,10 +7,11 @@ import com.coskun.hero.HeroPaladin;
 import com.coskun.inventory.Armor;
 import com.coskun.inventory.Inventory;
 import com.coskun.inventory.Weapon;
+import com.coskun.methods.ConsoleGameInput;
+import com.coskun.methods.GameInput;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Player {
     private String playerName;
@@ -23,7 +24,8 @@ public class Player {
     private int defaultHealth;
     private final List<String> itemAwardList = new ArrayList<>();
 
-    protected Scanner input = new Scanner(System.in);
+    //protected Scanner input = new Scanner(System.in);
+    protected GameInput input = new ConsoleGameInput();
 
     public Player(String playerName) {
         this.playerName = playerName;
@@ -63,7 +65,7 @@ public class Player {
         this.setPlayerMoney(hero.getHeroGold());
         this.setDefaultHealth(hero.getHeroHealth());
     }
-
+    //TODO: printPlayerInfo() method can be moved to a separate class
     public void printPlayerInfo() {
         System.out.println("Silahınız          : " + this.inventory.getWeapon().getWeaponName());
         System.out.println("Silahınızın Hasarı : " + this.inventory.getWeapon().getWeaponDamage());

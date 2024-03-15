@@ -16,8 +16,10 @@ public class LocationFactory {
             case 0:
                return Optional.empty();
             case 1:
+                System.out.println("Eve dönüyorsunuz...");
                 return Optional.of(new LocationVillageHome(player));
             case 2:
+                System.out.println("Köy dükkanına gidiyorsunuz...");
                 return Optional.of(new LocationVillageStore(player));
 
             case 3:

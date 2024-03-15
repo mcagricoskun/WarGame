@@ -9,7 +9,7 @@ public class LocationVillage extends Location {
 
     // player cant die village
     @Override
-    public boolean onLocation() {
+    public boolean enterLocation() {
         return true;
     }
 }
