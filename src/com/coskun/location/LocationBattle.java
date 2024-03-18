@@ -7,7 +7,7 @@ import com.coskun.monster.Monster;
 
 public abstract class LocationBattle extends Location {
     private Monster monster;
-    private Player player;
+
     private String itemAward;
     private RandomNumberGenerator randomNumberGenerator;
     private GameStatsGenerator gameStatsGenerator;
@@ -30,7 +30,7 @@ public abstract class LocationBattle extends Location {
             int monsterCount = getNumberOfMonsters();
 
             System.out.println(this.getLocationName() + " Alanına Hoş geldin!" + this.getPlayer().getPlayerName());
-            System.out.println("Bu alanda (" + this.getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getMonsterName() + " var");
+            System.out.println("Bu alanda (" + getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getMonsterName() + " var");
 
             // Choice of run or fight
             System.out.println("Savaşmak için <s>, kaçmak için <k> bas!");

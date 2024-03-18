@@ -52,14 +52,14 @@ public class LocationVillageStore extends LocationVillage {
     }
     public void sellWeapon(Player player) {
         System.out.println("Silah almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
-        int selectedWeaponIDddd = input.nextInt();
+        int selectedWeaponID = input.nextInt();
 
-        if (selectedWeaponIDddd == 0) {
+        if (selectedWeaponID == 0) {
             System.out.println("İşlem iptal edildi.");
             return;
         }
 
-        player.buyWeapon(weapons, selectedWeaponIDddd);
+        player.buyWeapon(weapons, selectedWeaponID);
     }
     public void sellArmor(Player player) {
         System.out.println("Zırh almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
