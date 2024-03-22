@@ -25,15 +25,25 @@ public class LocationVillageStore extends LocationVillage {
 
     @Override
     public boolean enterLocation() {
-        System.out.println("Dükkana hoş geidin!");
+        System.out.println("Dükkana hoş geldiniz!");
         System.out.println("Silah almak için -------> 1");
         System.out.println("Zırh almak için --------> 2");
         System.out.println("Dükkandan çıkmak için --> 3");
 
-        int decision = input.nextInt();
-        while (decision < 1 || decision > 3) {
-            System.out.println("Yanlış seçin yaptın, tekrar dene!");
-            decision = input.nextInt();
+        int decision;
+        while (true) {
+            String line = input.nextLine().trim();
+            if (isNumber(line)) {
+                decision = Integer.parseInt(line);
+                if (decision >= 1 && decision <= 3) {
+                    break;
+                } else {
+                    System.out.println("Geçerli bir seçim yapmadınız. Tekrar deneyiniz!");
+                }
+            } else {
+//                input.nextInt();
+                System.out.println("Geçerli bir tamsayı giriniz. Tekrar deneyiniz!");
+            }
         }
 
         switch (decision) {
@@ -50,6 +60,28 @@ public class LocationVillageStore extends LocationVillage {
         }
         return true;
     }
+
+    private boolean isNumber(String line) {
+        for(int i=0; i < line.length(); i++) {
+            if(!Character.isDigit(line.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isNumberEx(String line) {
+        try {
+            int parsed = Integer.parseInt(line);
+            if(parsed > 10) {
+                throw new IllegalArgumentException("Number is too high: " + parsed);
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public void sellWeapon(Player player) {
         System.out.println("Silah almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
         int selectedWeaponID = input.nextInt();
@@ -61,6 +93,7 @@ public class LocationVillageStore extends LocationVillage {
 
         player.buyWeapon(weapons, selectedWeaponID);
     }
+
     public void sellArmor(Player player) {
         System.out.println("Zırh almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
         int selectedArmorID = input.nextInt();

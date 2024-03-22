@@ -7,7 +7,6 @@ import com.coskun.monster.Monster;
 
 public abstract class LocationBattle extends Location {
     private Monster monster;
-
     private String itemAward;
     private RandomNumberGenerator randomNumberGenerator;
     private GameStatsGenerator gameStatsGenerator;
@@ -19,6 +18,10 @@ public abstract class LocationBattle extends Location {
         this.randomNumberGenerator = new RandomNumberGenerator();
         this.gameStatsGenerator = new GameStatsGenerator(player, monster);
     }
+
+
+
+
 
 
     public boolean enterLocation() {
@@ -35,8 +38,16 @@ public abstract class LocationBattle extends Location {
             // Choice of run or fight
             System.out.println("Savaşmak için <s>, kaçmak için <k> bas!");
 
-            String decision = input.nextLine();
-            decision = decision.toLowerCase();
+
+            String decision;
+            while (true) {
+                decision = input.nextLine().toLowerCase();
+                if (decision.equals("s") || decision.equals("k")) {
+                    break;
+                } else {
+                    System.out.println("Geçerli bir seçim yapmadınız. Savaşmak için <s>, kaçmak için <k> basın!");
+                }
+            }
 
             if (decision.equals("s")) {
                 return combat(monsterCount);
@@ -45,6 +56,7 @@ public abstract class LocationBattle extends Location {
             }
         }
     }
+
 
     private int getNumberOfMonsters() {
         return randomNumberGenerator.generateRandomNumber(getMaxMonsterCount());

@@ -18,4 +18,8 @@ public class ConsoleGameInput implements GameInput {
     public String nextLine() {
         return scanner.nextLine();
     }
+    @Override
+    public boolean hasNextInt() {
+        return scanner.hasNextInt();
+    }
 }

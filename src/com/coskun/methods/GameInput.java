@@ -4,4 +4,5 @@ public interface GameInput {
 
     int nextInt();
     String nextLine();
+    boolean hasNextInt();
 }

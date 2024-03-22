@@ -23,6 +23,7 @@ public class Monster {
 
     }
 
+
     public void resetHealth() {
         this.setMonsterHealth((this.getDefaultMonsterHealth()));
     }
@@ -49,6 +50,10 @@ public class Monster {
 
     public int getDefaultMonsterHealth() {
         return defaultMonsterHealth;
+    }
+
+    public String shout() {
+        return "AAAAAAAAAAAAAA";
     }
 
 }
