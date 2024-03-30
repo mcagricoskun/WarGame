@@ -2,6 +2,8 @@ package com.coskun.location;
 
 import com.coskun.Player;
 
+import java.io.IOException;
+
 public class LocationVillage extends Location {
     public LocationVillage(Player player, String locationName) {
         super(player, locationName);
@@ -9,7 +11,7 @@ public class LocationVillage extends Location {
 
     // player cant die village
     @Override
-    public boolean onLocation() {
+    public boolean onLocation() throws IOException {
         return true;
     }
 }

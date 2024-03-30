@@ -10,7 +10,7 @@ public class LocationVillageHome extends LocationVillage {
     @Override
     public boolean onLocation() {
         System.out.println("Eve hoş geldin, Canın yenilendi!");
-        this.getPlayer().setPlayerHealth(getPlayer().getDefaultHealth());
+        this.getPlayer().setHealth(getPlayer().getDefaultHealth());
         return true;
     }
 }

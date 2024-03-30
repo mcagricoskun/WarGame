@@ -13,7 +13,7 @@ public class GameStatsGenerator {
     }
 
     public void warStats() {
-        System.out.println("Senin Canın :" + player.getPlayerHealth() + " ve " + player.getInventory().getArmor().getArmorBlock() + " zırhın var");
+        System.out.println("Senin Canın :" + player.getHealth() + " ve " + player.getInventory().getArmor().getArmorBlock() + " zırhın var");
         System.out.println(monster.getMonsterName() + " canı: " + monster.getMonsterHealth());
         System.out.println("---------------------------------");
 
@@ -21,7 +21,7 @@ public class GameStatsGenerator {
 
     public void endWarStats (){
         System.out.println("Ödülünüz: " + monster.getWinAward());
-        player.setPlayerMoney(player.getPlayerMoney() + monster.getWinAward());
-        System.out.println("Toplam altının " + player.getPlayerMoney() + " oldu!");
+        player.setMoney(player.getMoney() + monster.getWinAward());
+        System.out.println("Toplam altının " + player.getMoney() + " oldu!");
     }
 }

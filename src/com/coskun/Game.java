@@ -8,38 +8,41 @@ import com.coskun.location.Location;
 import com.coskun.location.LocationFactory;
 import com.coskun.methods.ConsoleGameInput;
 import com.coskun.methods.GameInput;
+import com.coskun.printer.ConsolePrinter;
+import com.coskun.printer.EmailPrinter;
+import com.coskun.printer.FilePrinter;
+import com.coskun.printer.Printer;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class Game {
     //private final Scanner input = new Scanner(System.in);
 
     private static final Hero[] HEROES = {new HeroArcher(), new HeroPaladin(), new HeroCavalry()};
+
+    private Printer printer;
     private GameInput input = new ConsoleGameInput();
-    public void start (){
+    public void start () throws IOException {
+
+        printer = new ConsolePrinter(new FilePrinter());
+
         System.out.println("Hoş geldin, Adınız: ");
         String playerName = input.nextLine();
-        Player player = new Player(playerName);
+        Player player = new Player(playerName,printer);
 
-        printHeros();
-        //player.heroList();
+        printer.printHeroes(HEROES);
+
         int heroId = input.nextInt();
         player.selectHero(heroId);
 
-        player.printPlayerInfo();
+        printer.printInventory(player.getInventory());
+
 
         while (true){
-            System.out.println("--------------------------------");
-            System.out.println("Gitmek istediğiniz yeri seçin: ");
-            System.out.println("1 -> Ev");
-            System.out.println("2 -> Dükkan");
-            System.out.println("3 -> Dağ ----> (Ödül -> Kurt Dişi)");
-            System.out.println("4 -> Mağara -> (Ödül -> Kürk)");
-            System.out.println("5 -> Deniz --> (Ödül -> İnci)");
-
+            printer.printMenu();
             if(player.getItemAwardList().size()==3){
-                System.out.println("Tebrikler! Oyunu kazandınız!");
-
+                printer.printMessage("Tebrikler! Oyunu kazandınız!");
                 break;
             }
             else {
@@ -49,7 +52,7 @@ public class Game {
 
                 if(location.isPresent()) {
                     if (!location.get().onLocation()){
-                            System.out.println("ÖLDÜNÜZ!");
+                            printer.printMessage("ÖLDÜNÜZ!");
                             break;
 
                     }
@@ -60,13 +63,4 @@ public class Game {
         }
     }
 
-    public void printHeros(){
-
-        for (Hero h : HEROES) {
-            System.out.println( "ID --> "+ h.getHeroID() + " // "+ "Hero İsmi --> " + h.getHeroName() +" // "+ "Hero Hasarı --> " + h.getHeroDamage() +" // "+ "Hero Sağlığı --> " + h.getHeroHealth() +" // "+ "Hero Altın --> " + h.getHeroGold());
-        }
-
-        System.out.println("--------------");
-        System.out.println("Hero seçimini yapınız, ID = ?");
-    }
 }

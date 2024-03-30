@@ -1,57 +1,57 @@
 package com.coskun.hero;
 
 public abstract class  Hero {
-    int heroID;
-    String heroName;
-    int heroDamage;
-    int heroHealth;
-    int heroGold;
+    int id;
+    String name;
+    int damage;
+    int health;
+    int gold;
 
     protected Hero(int heroID, String heroName, int heroDamage, int heroHealth, int heroGold) {
-        this.heroID = heroID;
-        this.heroName = heroName;
-        this.heroDamage = heroDamage;
-        this.heroHealth = heroHealth;
-        this.heroGold = heroGold;
+        this.id = heroID;
+        this.name = heroName;
+        this.damage = heroDamage;
+        this.health = heroHealth;
+        this.gold = heroGold;
     }
 
-    public int getHeroID() {
-        return heroID;
+    public int getId() {
+        return id;
     }
 
-    public void setHeroID(int heroID) {
-        this.heroID = heroID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getHeroName() {
-        return heroName;
+    public String getName() {
+        return name;
     }
 
-    public void setHeroName(String heroName) {
-        this.heroName = heroName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getHeroDamage() {
-        return heroDamage;
+    public int getDamage() {
+        return damage;
     }
 
-    public void setHeroDamage(int heroDamage) {
-        this.heroDamage = heroDamage;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
-    public int getHeroHealth() {
-        return heroHealth;
+    public int getHealth() {
+        return health;
     }
 
-    public void setHeroHealth(int heroHealth) {
-        this.heroHealth = heroHealth;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public int getHeroGold() {
-        return heroGold;
+    public int getGold() {
+        return gold;
     }
 
-    public void setHeroGold(int heroGold) {
-        this.heroGold = heroGold;
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }
