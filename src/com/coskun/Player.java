@@ -51,6 +51,8 @@ public class Player {
             case 3:
                 initPlayer(HeroFactory.getHero(HeroFactory.HeroType.CAVALRY));
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown hero ID");
         }
         printer.printMessage(this.name + " Seçtin!");
     }

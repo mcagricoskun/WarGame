@@ -7,14 +7,14 @@ import com.coskun.monster.Monster;
 
 import java.io.IOException;
 
-public abstract class LocationBattle extends Location {
+public class LocationBattle extends Location {
     private Monster monster;
     private Player player;
     private String itemAward;
     private RandomNumberGenerator randomNumberGenerator;
     private GameStatsGenerator gameStatsGenerator;
 
-    protected LocationBattle(Player player, String locationName, Monster monster, String itemAward) {
+    public LocationBattle(Player player, String locationName, Monster monster, String itemAward) {
         super(player, locationName);
         this.monster = monster;
         this.itemAward = itemAward;

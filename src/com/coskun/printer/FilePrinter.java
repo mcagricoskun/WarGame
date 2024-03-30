@@ -19,20 +19,17 @@ public class FilePrinter implements Printer {
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
         }
-
         return out;
     }
 
     @Override
     public void printInventory(Inventory inventory) throws IOException {
-
         BufferedWriter out = openFile();
         out.write("Silahınız          : " + inventory.getWeapon().getName() + "\n");
         out.write(("Silahınızın Hasarı : " + inventory.getWeapon().getDamage()) + "\n");
         out.write("Zırhınız           : " + inventory.getArmor().getName() + "\n");
         out.write("Zırhınızın Engeli  : " + inventory.getArmor().getBlock() + "\n");
         out.close();
-
     }
 
     @Override
@@ -50,9 +47,7 @@ public class FilePrinter implements Printer {
         }
         out.write("--------------\n");
         out.write("Hero seçimini yapınız, ID = ?\n");
-
         out.close();
-
     }
 
     @Override

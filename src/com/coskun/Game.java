@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class Game {
-    //private final Scanner input = new Scanner(System.in);
 
     private static final Hero[] HEROES = {
             HeroFactory.getHero(HeroFactory.HeroType.ARCHER),
