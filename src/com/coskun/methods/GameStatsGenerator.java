@@ -13,8 +13,8 @@ public class GameStatsGenerator {
     }
 
     public void warStats() {
-        System.out.println("Senin Canın :" + player.getHealth() + " ve " + player.getInventory().getArmor().getArmorBlock() + " zırhın var");
-        System.out.println(monster.getMonsterName() + " canı: " + monster.getMonsterHealth());
+        System.out.println("Senin Canın :" + player.getHealth() + " ve " + player.getInventory().getArmor().getBlock() + " zırhın var");
+        System.out.println(monster.getName() + " canı: " + monster.getHealth());
         System.out.println("---------------------------------");
 
     }

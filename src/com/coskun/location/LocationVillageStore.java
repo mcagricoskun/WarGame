@@ -79,10 +79,10 @@ public class LocationVillageStore extends LocationVillage {
         System.out.println("Satın alabileceğin silahlar:");
         for (Armor a : armors) {
 
-            int id = a.getArmorId();
-            String name = a.getArmorName();
-            int price = a.getArmorPrice();
-            int block = a.getArmorBlock();
+            int id = a.getId();
+            String name = a.getName();
+            int price = a.getPrice();
+            int block = a.getBlock();
 
             System.out.println("ID: " + id + " | " + name + " ==> Bloklama: " + block + " Altın: " + price);
         }

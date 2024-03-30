@@ -32,7 +32,7 @@ public abstract class LocationBattle extends Location {
             int monsterCount = getNumberOfMonsters();
 
             System.out.println(this.getLocationName() + " Alanına Hoş geldin!" + this.getPlayer().getName());
-            System.out.println("Bu alanda (" + this.getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getMonsterName() + " var");
+            System.out.println("Bu alanda (" + this.getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getName() + " var");
 
             // Choice of run or fight
             System.out.println("Savaşmak için <s>, kaçmak için <k> bas!");
@@ -63,17 +63,17 @@ public abstract class LocationBattle extends Location {
             //warStats
             gameStatsGenerator.warStats();
 
-            while (this.getPlayer().getHealth() > 0 && this.getMonster().getMonsterHealth() > 0) {
+            while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
 //                // Player hit
                 int playerDamage = getPlayer().getDamage();
                 getMonster().receivedPlayerDamage(playerDamage);
 
                 // Monster hit
-                if (this.getMonster().getMonsterHealth() > 0) {
-                    int monsterDamage = getMonster().getMonsterDamage();
+                if (this.getMonster().getHealth() > 0) {
+                    int monsterDamage = getMonster().getDamage();
                     getPlayer().receivedMonsterDamage(monsterDamage);
                 } else {
-                    System.out.println(i + ". " + this.getMonster().getMonsterName() + " öldürüldü!");
+                    System.out.println(i + ". " + this.getMonster().getName() + " öldürüldü!");
                 }
 
             }
@@ -82,7 +82,7 @@ public abstract class LocationBattle extends Location {
         if (this.getPlayer().getHealth() < 0) {
             return false;
         } else {
-            System.out.println("Tebrikler! " + monsterCount + " tane " + this.getMonster().getMonsterName() + " öldürdünüz!");
+            System.out.println("Tebrikler! " + monsterCount + " tane " + this.getMonster().getName() + " öldürdünüz!");
 
             //print end statics at the end of the war
             gameStatsGenerator.endWarStats();

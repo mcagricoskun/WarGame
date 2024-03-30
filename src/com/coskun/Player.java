@@ -1,9 +1,7 @@
 package com.coskun;
 
 import com.coskun.hero.Hero;
-import com.coskun.hero.HeroArcher;
-import com.coskun.hero.HeroCavalry;
-import com.coskun.hero.HeroPaladin;
+import com.coskun.hero.HeroFactory;
 import com.coskun.inventory.Armor;
 import com.coskun.inventory.Inventory;
 import com.coskun.inventory.Weapon;
@@ -12,7 +10,6 @@ import com.coskun.printer.Printer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Player {
@@ -46,16 +43,13 @@ public class Player {
 
         switch (heroId) {
             case 1:
-                initPlayer(new HeroArcher());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.ARCHER));
                 break;
             case 2:
-                initPlayer(new HeroPaladin());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.PALADIN));
                 break;
             case 3:
-                initPlayer(new HeroCavalry());
-                break;
-            default:
-                initPlayer(new HeroArcher());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.CAVALRY));
                 break;
         }
         printer.printMessage(this.name + " Seçtin!");
@@ -74,10 +68,10 @@ public class Player {
     public void receivedMonsterDamage(int monsterDamage) throws IOException {
         printer.printMessage(getName() + " --> " + monsterDamage + " hasar aldınız!");
         if (getInventory() != null && getInventory().getArmor() != null) {
-            int blockedDamage = getInventory().getArmor().getArmorBlock() - monsterDamage;
+            int blockedDamage = getInventory().getArmor().getBlock() - monsterDamage;
             if (blockedDamage <= 0) {
                 setHealth(getHealth() + blockedDamage);
-                getInventory().getArmor().setArmorBlock(0);
+                getInventory().getArmor().setBlock(0);
             }
             printer.printMessage(getHealth() + " canınız kaldı");
         }
@@ -127,19 +121,19 @@ public class Player {
             selectedArmorID = input.nextInt();
             armor = inventory.getArmorById(armors, selectedArmorID);
         }
-        if (selectedArmorID != 0 && selectedArmorID != this.getInventory().getArmor().getArmorId()) {
+        if (selectedArmorID != 0 && selectedArmorID != this.getInventory().getArmor().getId()) {
             Armor selectedArmor = inventory.getArmorById(armors, selectedArmorID);
 
-            if (selectedArmor.getArmorPrice() > this.getMoney()) {
+            if (selectedArmor.getPrice() > this.getMoney()) {
                 printer.printMessage("Altının yetersiz!");
                 printer.printMessage("Sahip olduğun altın: " + this.getMoney());
-                printer.printMessage("Almak istediğin zırh: " + selectedArmor.getArmorPrice() + " altın.");
+                printer.printMessage("Almak istediğin zırh: " + selectedArmor.getPrice() + " altın.");
             } else {
                 this.getInventory().setArmor(selectedArmor);
 
-                int balance = this.getMoney() - selectedArmor.getArmorPrice();
+                int balance = this.getMoney() - selectedArmor.getPrice();
                 this.setMoney(balance);
-                printer.printMessage(selectedArmor.getArmorName() + " Satın aldın!" + " " + this.getMoney() + " altının kaldı");
+                printer.printMessage(selectedArmor.getName() + " Satın aldın!" + " " + this.getMoney() + " altının kaldı");
                 printer.printInventory(inventory);
             }
 

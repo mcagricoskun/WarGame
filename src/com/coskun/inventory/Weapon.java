@@ -6,10 +6,10 @@ public class Weapon {
     private int damage;
     private int price;
 
-    public Weapon(int id, String name, int weaponDamage, int price) {
+    public Weapon(int id, String name, int damage, int price) {
         this.id = id;
         this.name = name;
-        this.damage = weaponDamage;
+        this.damage = damage;
         this.price = price;
     }
 

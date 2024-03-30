@@ -1,54 +1,37 @@
 package com.coskun.inventory;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 
 
 public class Armor {
-    private int armorId;
-    private String armorName;
-    private int armorBlock;
-    private int armorPrice;
+    private int id;
+    private String name;
+    private int block;
+    private int price;
 
-    public Armor(int armorId, String armorName, int armorBlock, int armorPrice) {
-        this.armorId = armorId;
-        this.armorName = armorName;
-        this.armorBlock = armorBlock;
-        this.armorPrice = armorPrice;
+    public Armor(int id, String name, int block, int price) {
+        this.id = id;
+        this.name = name;
+        this.block = block;
+        this.price = price;
     }
 
-
-
-    public int getArmorId() {
-        return this.armorId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setArmorId(int armorId) {
-        this.armorId = armorId;
+    public String getName() {
+        return this.name;
     }
 
-    public String getArmorName() {
-        return this.armorName;
+    public int getBlock() {
+        return this.block;
     }
 
-    public void setArmorName(String armorName) {
-        this.armorName = armorName;
+    public void setBlock(int block) {
+        this.block = block;
     }
 
-    public int getArmorBlock() {
-        return this.armorBlock;
+    public int getPrice() {
+        return this.price;
     }
 
-    public void setArmorBlock(int armorBlock) {
-        this.armorBlock = armorBlock;
-    }
-
-    public int getArmorPrice() {
-        return this.armorPrice;
-    }
-
-    public void setArmorPrice(int armorPrice) {
-        this.armorPrice = armorPrice;
-    }
 }

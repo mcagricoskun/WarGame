@@ -29,8 +29,8 @@ public class FilePrinter implements Printer {
         BufferedWriter out = openFile();
         out.write("Silahınız          : " + inventory.getWeapon().getName() + "\n");
         out.write(("Silahınızın Hasarı : " + inventory.getWeapon().getDamage()) + "\n");
-        out.write("Zırhınız           : " + inventory.getArmor().getArmorName() + "\n");
-        out.write("Zırhınızın Engeli  : " + inventory.getArmor().getArmorBlock() + "\n");
+        out.write("Zırhınız           : " + inventory.getArmor().getName() + "\n");
+        out.write("Zırhınızın Engeli  : " + inventory.getArmor().getBlock() + "\n");
         out.close();
 
     }

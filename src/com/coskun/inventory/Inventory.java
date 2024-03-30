@@ -27,7 +27,7 @@ public class Inventory {
 
     public Armor getArmorById(Armor[] armors, int id) {
         for (Armor a : armors) {
-            if (a.getArmorId() == id) {
+            if (a.getId() == id) {
                 return a;
             }
         }

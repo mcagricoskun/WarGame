@@ -23,8 +23,8 @@ public class ConsolePrinter implements Printer {
     public void printInventory(Inventory inventory) throws IOException {
         System.out.println("Silahınız          : " + inventory.getWeapon().getName());
         System.out.println("Silahınızın Hasarı : " + inventory.getWeapon().getDamage());
-        System.out.println("Zırhınız           : " + inventory.getArmor().getArmorName());
-        System.out.println("Zırhınızın Engeli  : " + inventory.getArmor().getArmorBlock());
+        System.out.println("Zırhınız           : " + inventory.getArmor().getName());
+        System.out.println("Zırhınızın Engeli  : " + inventory.getArmor().getBlock());
         if (this.debugPrinter != null)
             this.debugPrinter.printInventory(inventory);
     }
