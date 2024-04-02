@@ -4,6 +4,8 @@ import com.coskun.Player;
 import com.coskun.inventory.Armor;
 import com.coskun.inventory.Weapon;
 
+import java.io.IOException;
+
 public class LocationVillageStore extends LocationVillage {
 
     private final Weapon[] weapons = {
@@ -24,7 +26,7 @@ public class LocationVillageStore extends LocationVillage {
 
 
     @Override
-    public boolean onLocation() {
+    public boolean onLocation() throws IOException {
         System.out.println("Dükkana hoş geidin!");
         System.out.println("Silah almak için -------> 1");
         System.out.println("Zırh almak için --------> 2");
@@ -50,7 +52,7 @@ public class LocationVillageStore extends LocationVillage {
         }
         return true;
     }
-    public void sellWeapon(Player player) {
+    public void sellWeapon(Player player) throws IOException {
         System.out.println("Silah almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
         int selectedWeaponIDddd = input.nextInt();
 
@@ -61,7 +63,7 @@ public class LocationVillageStore extends LocationVillage {
 
         player.buyWeapon(weapons, selectedWeaponIDddd);
     }
-    public void sellArmor(Player player) {
+    public void sellArmor(Player player) throws IOException {
         System.out.println("Zırh almak için lütfen bir ID seçin (Dükkandan çıkmak için -> 0): ");
         int selectedArmorID = input.nextInt();
 
@@ -77,10 +79,10 @@ public class LocationVillageStore extends LocationVillage {
         System.out.println("Satın alabileceğin silahlar:");
         for (Armor a : armors) {
 
-            int id = a.getArmorId();
-            String name = a.getArmorName();
-            int price = a.getArmorPrice();
-            int block = a.getArmorBlock();
+            int id = a.getId();
+            String name = a.getName();
+            int price = a.getPrice();
+            int block = a.getBlock();
 
             System.out.println("ID: " + id + " | " + name + " ==> Bloklama: " + block + " Altın: " + price);
         }
@@ -90,10 +92,10 @@ public class LocationVillageStore extends LocationVillage {
         System.out.println("Satın alabileceğin silahlar:");
         for (Weapon w : weapons) {
 
-            int id = w.getWeaponId();
-            String name = w.getWeaponName();
-            int price = w.getWeaponPrice();
-            int damage = w.getWeaponDamage();
+            int id = w.getId();
+            String name = w.getName();
+            int price = w.getPrice();
+            int damage = w.getDamage();
 
             System.out.println("ID: " + id + " | " + name + " ==> Hasar: " + damage + " Altın: " + price);
         }

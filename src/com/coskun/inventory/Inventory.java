@@ -24,4 +24,23 @@ public class Inventory {
     public void setWeapon(Weapon weapons) {
         this.weapon = weapons;
     }
+
+    public Armor getArmorById(Armor[] armors, int id) {
+        for (Armor a : armors) {
+            if (a.getId() == id) {
+                return a;
+            }
+        }
+
+        return null;
+    }
+
+    public Weapon getWeaponById(Weapon[] weapons, int selectedWeaponID) {
+        for (Weapon w : weapons) {
+            if (w.getId() == selectedWeaponID) {
+                return w;
+            }
+        }
+        return null;
+    }
 }

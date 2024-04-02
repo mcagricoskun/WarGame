@@ -1,32 +1,36 @@
 package com.coskun;
 
 import com.coskun.hero.Hero;
-import com.coskun.hero.HeroArcher;
-import com.coskun.hero.HeroCavalry;
-import com.coskun.hero.HeroPaladin;
+import com.coskun.hero.HeroFactory;
 import com.coskun.inventory.Armor;
 import com.coskun.inventory.Inventory;
 import com.coskun.inventory.Weapon;
+import com.coskun.printer.Printer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Player {
-    private String playerName;
-    private int playerHealth;
-    private int playerDamage;
-    private int playerMoney;
-    private String heroName;
-    private int heroId;
-    private Inventory inventory;
+    private String name;
+    private int health;
+    private int damage;
+    private int money;
     private int defaultHealth;
+    private Inventory inventory;
+
+    private Hero hero;
+
     private final List<String> itemAwardList = new ArrayList<>();
 
     protected Scanner input = new Scanner(System.in);
 
-    public Player(String playerName) {
-        this.playerName = playerName;
+    private Printer printer;
+
+    public Player(String name,Printer printer) {
+        this.name = name;
+        this.printer = printer;
         this.inventory = new Inventory();
     }
 
@@ -35,191 +39,147 @@ public class Player {
         itemAwardList.add(award);
     }
 
-    public void selectHero(int heroId) {
-
+    public void selectHero(int heroId) throws IOException {
 
         switch (heroId) {
             case 1:
-                initPlayer(new HeroArcher());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.ARCHER));
                 break;
             case 2:
-                initPlayer(new HeroPaladin());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.PALADIN));
                 break;
             case 3:
-                initPlayer(new HeroCavalry());
+                initPlayer(HeroFactory.getHero(HeroFactory.HeroType.CAVALRY));
                 break;
             default:
-                initPlayer(new HeroArcher());
-                break;
+                throw new IllegalArgumentException("Unknown hero ID");
         }
-        System.out.println(this.playerName + " Seçtin!");
+        printer.printMessage(this.name + " Seçtin!");
     }
 
     //mapped player and hero stats
     private void initPlayer(Hero hero) {
-        this.setPlayerName(hero.getHeroName());
-        this.setPlayerDamage(hero.getHeroDamage());
-        this.setPlayerHealth(hero.getHeroHealth());
-        this.setPlayerMoney(hero.getHeroGold());
-        this.setDefaultHealth(hero.getHeroHealth());
+        this.hero = hero;
+        this.setName(hero.getName());
+        this.setDamage(hero.getDamage());
+        this.setHealth(hero.getHealth());
+        this.setMoney(hero.getGold());
+        this.setDefaultHealth(hero.getHealth());
     }
 
-    public void printPlayerInfo() {
-        System.out.println("Silahınız          : " + this.inventory.getWeapon().getWeaponName());
-        System.out.println("Silahınızın Hasarı : " + this.inventory.getWeapon().getWeaponDamage());
-
-        System.out.println("Zırhınız           : " + this.inventory.getArmor().getArmorName());
-        System.out.println("Zırhınızın Engeli  : " + this.inventory.getArmor().getArmorBlock());
-
-    }
-
-    public void receivedMonsterDamage(int monsterDamage) {
-        System.out.println(getPlayerName() + " --> " + monsterDamage + " hasar aldınız!");
+    public void receivedMonsterDamage(int monsterDamage) throws IOException {
+        printer.printMessage(getName() + " --> " + monsterDamage + " hasar aldınız!");
         if (getInventory() != null && getInventory().getArmor() != null) {
-            int blockedDamage = getInventory().getArmor().getArmorBlock() - monsterDamage;
+            int blockedDamage = getInventory().getArmor().getBlock() - monsterDamage;
             if (blockedDamage <= 0) {
-                setPlayerHealth(getPlayerHealth() + blockedDamage);
-                getInventory().getArmor().setArmorBlock(0);
+                setHealth(getHealth() + blockedDamage);
+                getInventory().getArmor().setBlock(0);
             }
-            System.out.println(getPlayerHealth() + " canınız kaldı");
+            printer.printMessage(getHealth() + " canınız kaldı");
         }
     }
 
-    public void buyWeapon(Weapon[] weapons, int selectedWeaponID) {
-
-        Weapon weapon = getWeaponById(weapons, selectedWeaponID);
-
+    public Weapon tryGettingWeapon(Weapon[] weapons, int selectedWeaponID) throws IOException {
+        Weapon weapon = inventory.getWeaponById(weapons, selectedWeaponID);
         while (weapon == null) {
-            System.out.println("Geçersiz seçim, tekrar dene:");
+            printer.printMessage("Geçersiz seçim, tekrar dene:");
             selectedWeaponID = input.nextInt();
-            weapon = getWeaponById(weapons, selectedWeaponID);
+            weapon = inventory.getWeaponById(weapons, selectedWeaponID);
         }
-
-        if (selectedWeaponID != 0 && selectedWeaponID != this.getInventory().getWeapon().getWeaponId()) {
-            Weapon selectedWeapon = getWeaponById(weapons, selectedWeaponID);
-
-            if (selectedWeapon.getWeaponPrice() > this.getPlayerMoney()) {
-                System.out.println("Altının yetersiz!");
-                System.out.println("Sahip olduğun altın: " + this.getPlayerMoney());
-                System.out.println("Almak istediğin silah: " + selectedWeapon.getWeaponPrice() + " altın.");
-            } else {
-                this.getInventory().setWeapon(selectedWeapon);
-
-                int balance = this.getPlayerMoney() - selectedWeapon.getWeaponPrice();
-                this.setPlayerMoney(balance);
-                System.out.println(selectedWeapon.getWeaponName() + " Satın aldın! " + this.getPlayerMoney() + " altının kaldı");
-
-                this.printPlayerInfo();
-            }
-        } else {
-            System.out.println("Zaten bu silahı kullanıyorsun!");
+        if (!isBuyable(weapon)) {
+            printer.printMessage("Altının yetersiz!");
+            printer.printMessage("Sahip olduğun altın: " + this.getMoney());
+            printer.printMessage("Almak istediğin silah: " + weapon.getPrice() + " altın.");
+            return null;
         }
+        return weapon;
     }
 
-    private Weapon getWeaponById(Weapon[] weapons, int selectedWeaponID) {
-        for (Weapon w : weapons) {
-            if (w.getWeaponId() == selectedWeaponID) {
-                return w;
-            }
-        }
-        return null;
+    public boolean isBuyable(Weapon weapon) {
+        return weapon.getPrice() <= this.money;
     }
 
-    public void buyArmor(Armor[] armors, int selectedArmorID) {
+    public void buyWeapon(Weapon[] weapons, int selectedWeaponID) throws IOException {
+        if (selectedWeaponID == 0)
+            return;
+        if (selectedWeaponID == this.inventory.getWeapon().getId()) {
+            printer.printMessage("Zaten bu silahı kullanıyorsun!");
+            return;
+        }
+        Weapon selectedWeapon = tryGettingWeapon(weapons, selectedWeaponID);
+        if(selectedWeapon == null)
+            return;
+        this.getInventory().setWeapon(selectedWeapon);
+        this.setMoney(this.getMoney() - selectedWeapon.getPrice());
+        printer.printMessage(selectedWeapon.getName() + " Satın aldın! " + this.getMoney() + " altının kaldı");
+        printer.printInventory(inventory);
+    }
 
-        Armor armor = getArmorById(armors, selectedArmorID);
+    public void buyArmor(Armor[] armors, int selectedArmorID) throws IOException {
+
+        Armor armor = inventory.getArmorById(armors, selectedArmorID);
         while (armor == null) {
-            System.out.println("Geçersiz seçim, tekrar dene:");
+            printer.printMessage("Geçersiz seçim, tekrar dene:");
             selectedArmorID = input.nextInt();
-            armor = getArmorById(armors, selectedArmorID);
+            armor = inventory.getArmorById(armors, selectedArmorID);
         }
-        if (selectedArmorID != 0 && selectedArmorID != this.getInventory().getArmor().getArmorId()) {
-            Armor selectedArmor = getArmorById(armors, selectedArmorID);
+        if (selectedArmorID != 0 && selectedArmorID != this.getInventory().getArmor().getId()) {
+            Armor selectedArmor = inventory.getArmorById(armors, selectedArmorID);
 
-            if (selectedArmor.getArmorPrice() > this.getPlayerMoney()) {
-                System.out.println("Altının yetersiz!");
-                System.out.println("Sahip olduğun altın: " + this.getPlayerMoney());
-                System.out.println("Almak istediğin zırh: " + selectedArmor.getArmorPrice() + " altın.");
+            if (selectedArmor.getPrice() > this.getMoney()) {
+                printer.printMessage("Altının yetersiz!");
+                printer.printMessage("Sahip olduğun altın: " + this.getMoney());
+                printer.printMessage("Almak istediğin zırh: " + selectedArmor.getPrice() + " altın.");
             } else {
                 this.getInventory().setArmor(selectedArmor);
 
-                int balance = this.getPlayerMoney() - selectedArmor.getArmorPrice();
-                this.setPlayerMoney(balance);
-                System.out.println(selectedArmor.getArmorName() + " Satın aldın!" + " " + this.getPlayerMoney() + " altının kaldı");
-
-                printPlayerInfo();
+                int balance = this.getMoney() - selectedArmor.getPrice();
+                this.setMoney(balance);
+                printer.printMessage(selectedArmor.getName() + " Satın aldın!" + " " + this.getMoney() + " altının kaldı");
+                printer.printInventory(inventory);
             }
 
         } else {
-            System.out.println("Zaten bu zırha sahipsin!");
+            printer.printMessage("Zaten bu zırha sahipsin!");
         }
 
     }
 
-    private Armor getArmorById(Armor[] armors, int id) {
-        for (Armor a : armors) {
-            if (a.getArmorId() == id) {
-                return a;
-            }
-        }
 
-        return null;
+    public String getName() {
+        return name;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public int getHealth() {
+        return health;
     }
 
-    public int getPlayerHealth() {
-        return playerHealth;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public void setPlayerHealth(int playerHealth) {
-        this.playerHealth = playerHealth;
+    public int getDamage() {
+        return damage;
     }
 
-    public int getPlayerDamage() {
-        return playerDamage;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
-    public void setPlayerDamage(int playerDamage) {
-        this.playerDamage = playerDamage;
+    public int getMoney() {
+        return money;
     }
 
-    public int getPlayerMoney() {
-        return playerMoney;
-    }
-
-    public void setPlayerMoney(int playerMoney) {
-        this.playerMoney = playerMoney;
-    }
-
-    public String getHeroName() {
-        return heroName;
-    }
-
-    public void setHeroName(String heroName) {
-        this.heroName = heroName;
-    }
-
-    public int getHeroId() {
-        return heroId;
-    }
-
-    public void setHeroId(int heroId) {
-        this.heroId = heroId;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 
     public int getDefaultHealth() {
@@ -227,7 +187,7 @@ public class Player {
     }
 
     public void setDefaultHealth(int defaultHealth) {
-        this.defaultHealth = playerHealth;
+        this.defaultHealth = defaultHealth;
     }
 
     public List<String> getItemAwardList() {

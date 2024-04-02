@@ -5,14 +5,16 @@ import com.coskun.methods.RandomNumberGenerator;
 import com.coskun.methods.GameStatsGenerator;
 import com.coskun.monster.Monster;
 
-public abstract class LocationBattle extends Location {
+import java.io.IOException;
+
+public class LocationBattle extends Location {
     private Monster monster;
     private Player player;
     private String itemAward;
     private RandomNumberGenerator randomNumberGenerator;
     private GameStatsGenerator gameStatsGenerator;
 
-    protected LocationBattle(Player player, String locationName, Monster monster, String itemAward) {
+    public LocationBattle(Player player, String locationName, Monster monster, String itemAward) {
         super(player, locationName);
         this.monster = monster;
         this.itemAward = itemAward;
@@ -21,16 +23,16 @@ public abstract class LocationBattle extends Location {
     }
 
 
-    public boolean onLocation() {
+    public boolean onLocation() throws IOException {
 
-        if (this.getPlayer().getPlayerHealth() < 0) {
+        if (this.getPlayer().getHealth() < 0) {
             return false;
         } else {
             //creates monster random monster count for every area
             int monsterCount = getNumberOfMonsters();
 
-            System.out.println(this.getLocationName() + " Alanına Hoş geldin!" + this.getPlayer().getPlayerName());
-            System.out.println("Bu alanda (" + this.getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getMonsterName() + " var");
+            System.out.println(this.getLocationName() + " Alanına Hoş geldin!" + this.getPlayer().getName());
+            System.out.println("Bu alanda (" + this.getLocationName() + ")" + " " + monsterCount + " " + this.getMonster().getName() + " var");
 
             // Choice of run or fight
             System.out.println("Savaşmak için <s>, kaçmak için <k> bas!");
@@ -50,7 +52,7 @@ public abstract class LocationBattle extends Location {
         return randomNumberGenerator.generateRandomNumber(getMaxMonsterCount());
     }
 
-    public boolean combat(int monsterCount) {
+    public boolean combat(int monsterCount) throws IOException {
 
         // I wrote as many loops as monsters to fight all the monsters
         for (int i = 1; i <= monsterCount; i++) {
@@ -61,26 +63,26 @@ public abstract class LocationBattle extends Location {
             //warStats
             gameStatsGenerator.warStats();
 
-            while (this.getPlayer().getPlayerHealth() > 0 && this.getMonster().getMonsterHealth() > 0) {
+            while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
 //                // Player hit
-                int playerDamage = getPlayer().getPlayerDamage();
+                int playerDamage = getPlayer().getDamage();
                 getMonster().receivedPlayerDamage(playerDamage);
 
                 // Monster hit
-                if (this.getMonster().getMonsterHealth() > 0) {
-                    int monsterDamage = getMonster().getMonsterDamage();
+                if (this.getMonster().getHealth() > 0) {
+                    int monsterDamage = getMonster().getDamage();
                     getPlayer().receivedMonsterDamage(monsterDamage);
                 } else {
-                    System.out.println(i + ". " + this.getMonster().getMonsterName() + " öldürüldü!");
+                    System.out.println(i + ". " + this.getMonster().getName() + " öldürüldü!");
                 }
 
             }
         }
         // if player health is less than 0, player dies
-        if (this.getPlayer().getPlayerHealth() < 0) {
+        if (this.getPlayer().getHealth() < 0) {
             return false;
         } else {
-            System.out.println("Tebrikler! " + monsterCount + " tane " + this.getMonster().getMonsterName() + " öldürdünüz!");
+            System.out.println("Tebrikler! " + monsterCount + " tane " + this.getMonster().getName() + " öldürdünüz!");
 
             //print end statics at the end of the war
             gameStatsGenerator.endWarStats();

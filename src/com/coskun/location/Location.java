@@ -4,6 +4,8 @@ import com.coskun.Player;
 import com.coskun.methods.ConsoleGameInput;
 import com.coskun.methods.GameInput;
 
+import java.io.IOException;
+
 public abstract class Location {
 
     private  final Player player;
@@ -16,7 +18,7 @@ public abstract class Location {
         this.locationName = locationName;
     }
 
-    public abstract boolean onLocation();
+    public abstract boolean onLocation() throws IOException;
 
     public Player getPlayer() {
         return player;

@@ -1,78 +1,52 @@
 package com.coskun.monster;
 
 public class Monster {
-    private int monsterId;
-    private String monsterName;
-    private int monsterDamage;
-    private int monsterHealth;
-    private int winAward;
-    private int defaultMonsterHealth;
+    private final String name;
+    private final int damage;
+    private int health;
+    private final int winAward;
+    private final int defaultHealth;
 
-    public Monster(int monsterId, String monsterName, int monsterDamage, int monsterHealth, int winAward) {
-        this.monsterId = monsterId;
-        this.monsterName = monsterName;
-        this.monsterDamage = monsterDamage;
-        this.monsterHealth = monsterHealth;
+    public Monster(String name, int damage, int health, int winAward) {
+        this.name = name;
+        this.damage = damage;
+        this.health = health;
         this.winAward = winAward;
-        this.defaultMonsterHealth = monsterHealth;
+        this.defaultHealth = health;
     }
 
        public void receivedPlayerDamage(int playerDamage){
-        System.out.println(getMonsterName() + " --> " + playerDamage + " hasar vurdunuz!");
-        setMonsterHealth(getMonsterHealth() - playerDamage);
-        System.out.println(getMonsterName() + " --> " + getMonsterHealth() + " canı kaldı!");
+        System.out.println(getName() + " --> " + playerDamage + " hasar vurdunuz!");
+        setHealth(getHealth() - playerDamage);
+        System.out.println(getName() + " --> " + getHealth() + " canı kaldı!");
 
     }
 
-    public int getMonsterId() {
-        return monsterId;
+    public String getName() {
+        return name;
     }
 
-    public void setMonsterId(int monsterId) {
-        this.monsterId = monsterId;
+    public int getDamage() {
+        return damage;
     }
 
-    public String getMonsterName() {
-        return monsterName;
+    public int getHealth() {
+        return health;
     }
 
-    public void setMonsterName(String monsterName) {
-        this.monsterName = monsterName;
-    }
-
-    public int getMonsterDamage() {
-        return monsterDamage;
-    }
-
-    public void setMonsterDamage(int monsterDamage) {
-        this.monsterDamage = monsterDamage;
-    }
-
-    public int getMonsterHealth() {
-        return monsterHealth;
-    }
-
-    public void setMonsterHealth(int monsterHealth) {
-        this.monsterHealth = monsterHealth;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getWinAward() {
         return winAward;
     }
 
-    public void setWinAward(int winAward) {
-        this.winAward = winAward;
-    }
-
-    public int getDefaultMonsterHealth() {
-        return defaultMonsterHealth;
-    }
-
-    public void setDefaultMonsterHealth(int defaultMonsterHealth) {
-        this.defaultMonsterHealth = defaultMonsterHealth;
+    public int getDefaultHealth() {
+        return defaultHealth;
     }
 
     public void resetHealth() {
-        this.setMonsterHealth((this.getDefaultMonsterHealth()));
+        this.setHealth((this.getDefaultHealth()));
     }
 }
